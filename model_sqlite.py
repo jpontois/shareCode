@@ -22,9 +22,10 @@ def createTables():
     c.execute('''
         CREATE TABLE IF NOT EXISTS edition (
             uid INTEGER PRIMARY KEY AUTOINCREMENT,
-            ip INT,
-            user_agent VARCHAR(255),
-            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            code_id INTEGER,
+            ip VARCHAR(20),
+            user_agent VARCHAR(1000),
+            date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
 
@@ -115,14 +116,14 @@ def updateCode(uid, code, language):
 
 # ---------------------------------------------------------
 
-def createEdition(ip, user_agent):
+def createEdition(code_id, ip, user_agent):
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
     c.execute('''
-        INSERT INTO edition
-        VALUES(?,?)
-    ''', (ip, user_agent))
+        INSERT INTO edition(code_id, ip, user_agent)
+        VALUES(?, ?, ?)
+    ''', (code_id, ip, user_agent))
 
     uid = c.lastrowid
 
@@ -137,11 +138,13 @@ def getEdition():
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
-    result = c.execute('''
-        SELECT ip, user_agent, date
+    c.execute('''
+        SELECT code_id, ip, user_agent, date
         FROM edition
         ORDER BY date DESC
     ''')
+
+    result = c.fetchall()
 
     conn.commit()
     conn.close()

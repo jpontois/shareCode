@@ -23,6 +23,7 @@ def index():
 @app.route('/create')
 def create():
     uid = createCode()
+    createEdition(uid, request.remote_addr, request.user_agent.string)
     return redirect("{}edit/{}".format(request.host_url,uid))
 
 # ---------------------------------------------------------
@@ -32,7 +33,7 @@ def edit(uid):
     row = getCode(uid)
 
     if row is None:
-        return render_template('error.html',uid=uid)
+        return render_template('error.html',uid = uid)
 
     d = dict(
         uid=uid,
@@ -52,6 +53,7 @@ def publish():
     language  = request.form['language']
 
     updateCode(uid, code, language)
+    createEdition(uid, request.remote_addr, request.user_agent.string)
 
     return redirect(
         "{}{}/{}".format(request.host_url,
@@ -66,7 +68,7 @@ def view(uid):
     row = getCode(uid)
 
     if row is None:
-        return render_template('error.html',uid=uid)
+        return render_template('error.html',uid = uid)
 
     d = dict(
         uid=uid,
@@ -81,7 +83,7 @@ def view(uid):
 
 @app.route('/admin/')
 def admin():
-    pass
+    return render_template('admin.html', data = getEdition())
 
 # ---------------------------------------------------------
 
