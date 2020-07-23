@@ -6,22 +6,27 @@ def createTables():
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
-    c.execute('''
-        CREATE TABLE code (
-            code DEFAULT 'Insert your code here ...',
-            language DEFAULT 'py',
-            createdAt DEFAULT NOW(),
-            updatedAt
-        )
-        ''')
+    #c.execute("DROP TABLE code")
+    #c.execute("DROP TABLE edition")
 
     c.execute('''
-        CREATE TABLE edition (
-            ip,
-            user_agent,
-            date DEFAULT NOW()
+        CREATE TABLE IF NOT EXISTS code (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            code TEXT DEFAULT 'Insert your code here ...',
+            language VARCHAR(50) DEFAULT 'py',
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updatedAt TIMESTAMP
         )
-        ''')
+    ''')
+
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS edition (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ip INT,
+            user_agent VARCHAR(255),
+            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
 
     conn.commit()
     conn.close()
@@ -34,7 +39,7 @@ def createCode():
 
     c.execute('''
         INSERT INTO code
-        ''')
+    ''')
 
     uid = c.lastrowid
 
@@ -55,7 +60,7 @@ def getCode(id):
             language
         FROM code
         WHERE id = ?
-        ''', (id))
+    ''', (id))
 
     conn.commit()
     conn.close()
@@ -76,7 +81,7 @@ def getAllCode():
         ORDER BY
             updatedAt DESC,
             createdAt DESC
-        ''')
+    ''')
 
     conn.commit()
     conn.close()
@@ -94,7 +99,7 @@ def updateCode(id, code, language):
         (code, language, updatedAt)
         SET(?,?, NOW())
         WHERE id = ?
-        ''', (code, language, id))
+    ''', (code, language, id))
 
     conn.commit()
     conn.close()
@@ -110,7 +115,7 @@ def createEdition(ip, user_agent):
     c.execute('''
         INSERT INTO edition
         VALUES(?,?)
-        ''', (ip, user_agent))
+    ''', (ip, user_agent))
 
     uid = c.lastrowid
 
@@ -129,7 +134,7 @@ def getEdition():
         SELECT ip, user_agent, date
         FROM edition
         ORDER BY date DESC
-        ''')
+    ''')
 
     conn.commit()
     conn.close()

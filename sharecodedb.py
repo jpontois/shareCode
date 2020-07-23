@@ -10,6 +10,7 @@ from model_sqlite import createTables, \
     getEdition
 
 app = Flask(__name__)
+createTables()
 
 # ---------------------------------------------------------
 
