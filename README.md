@@ -1,4 +1,8 @@
 # Evaluation semaine de cours Python : Share Code
+## Lancement
+* pip3 install -r requirements.txt
+* export FLASK_ENV=development
+* python3 app.py ou python3 -m flask run
 
 ## Partie 1 : enregistrer le langage de programmation utilisé
 **Model :**
