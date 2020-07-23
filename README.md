@@ -1,7 +1,16 @@
 # Evaluation semaine de cours Python : Share Code
 
 ## Partie 1 : enregistrer le langage de programmation utilisé
-A faire
+Model :
+* Create .lang file function
+* Read .lang file function
+
+Template :
+* Add select tag into form
+* If condition to select the language used
+
+Routes :
+* Add language info to requests
 
 ## Partie 2 : Changez le procédé de stockage, plus de fichiers mais un SGBDR
 A faire
