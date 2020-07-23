@@ -11,7 +11,7 @@ def createTables():
 
     c.execute('''
         CREATE TABLE IF NOT EXISTS code (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            uid INTEGER PRIMARY KEY AUTOINCREMENT,
             code TEXT DEFAULT 'Insert your code here ...',
             language VARCHAR(50) DEFAULT 'py',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -21,7 +21,7 @@ def createTables():
 
     c.execute('''
         CREATE TABLE IF NOT EXISTS edition (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            uid INTEGER PRIMARY KEY AUTOINCREMENT,
             ip INT,
             user_agent VARCHAR(255),
             TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -38,7 +38,7 @@ def createCode():
     c = conn.cursor()
 
     c.execute('''
-        INSERT INTO code
+        INSERT INTO code DEFAULT VALUES
     ''')
 
     uid = c.lastrowid
@@ -50,17 +50,19 @@ def createCode():
 
 # ---------------------------------------------------------
 
-def getCode(id):
+def getCode(uid):
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
-    result = c.execute('''
+    c.execute('''
         SELECT
             code,
             language
         FROM code
-        WHERE id = ?
-    ''', (id))
+        WHERE uid = ?
+    ''', uid)
+
+    result = c.fetchone()
 
     conn.commit()
     conn.close()
@@ -73,8 +75,9 @@ def getAllCode():
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
-    result = c.execute('''
+    c.execute('''
         SELECT
+            uid,
             code,
             language
         FROM code
@@ -83,6 +86,8 @@ def getAllCode():
             createdAt DESC
     ''')
 
+    result = c.fetchall()
+
     conn.commit()
     conn.close()
 
@@ -90,16 +95,18 @@ def getAllCode():
 
 # ---------------------------------------------------------
 
-def updateCode(id, code, language):
+def updateCode(uid, code, language):
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
     result = c.execute('''
-        UPDATE TABLE code
-        (code, language, updatedAt)
-        SET(?,?, NOW())
-        WHERE id = ?
-    ''', (code, language, id))
+        UPDATE code
+        SET
+            code= ?,
+            language = ?,
+            updatedAt = CURRENT_TIMESTAMP
+        WHERE uid = ?
+    ''', (code, language, uid))
 
     conn.commit()
     conn.close()

@@ -16,8 +16,7 @@ createTables()
 
 @app.route('/')
 def index():
-    d = getAllCode()
-    return render_template('index.html',**d)
+    return render_template('index.html', data = getAllCode())
 
 # ---------------------------------------------------------
 
@@ -36,9 +35,9 @@ def edit(uid):
         return render_template('error.html',uid=uid)
 
     d = dict(
-        uid=row[0][0],
-        code=row[0][1],
-        language=row[0][2],
+        uid=uid,
+        code=row[0],
+        language=row[1],
         url="{}view/{}".format(request.host_url,uid)
     )
 
@@ -51,10 +50,14 @@ def publish():
     code = request.form['code']
     uid  = request.form['uid']
     language  = request.form['language']
+
     updateCode(uid, code, language)
-    return redirect("{}{}/{}".format(request.host_url,
-                                     request.form['submit'],
-                                     uid))
+
+    return redirect(
+        "{}{}/{}".format(request.host_url,
+        request.form['submit'],
+        uid)
+    )
 
 # ---------------------------------------------------------
 
@@ -66,9 +69,9 @@ def view(uid):
         return render_template('error.html',uid=uid)
 
     d = dict(
-        uid=row[0][0],
-        code=row[0][1],
-        language=row[0][2],
+        uid=uid,
+        code=row[0],
+        language=row[1],
         url="{}view/{}".format(request.host_url,uid)
     )
 
