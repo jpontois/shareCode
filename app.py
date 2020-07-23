@@ -23,6 +23,7 @@ def index():
 @app.route('/create')
 def create():
     uid = createCode()
+    createEdition(uid, request.remote_addr, request.user_agent.string)
     return redirect("{}edit/{}".format(request.host_url,uid))
 
 # ---------------------------------------------------------
@@ -52,7 +53,7 @@ def publish():
     language  = request.form['language']
 
     updateCode(uid, code, language)
-    createEdition(request.remote_addr, request.user_agent)
+    createEdition(uid, request.remote_addr, request.user_agent.string)
 
     return redirect(
         "{}{}/{}".format(request.host_url,
@@ -80,9 +81,8 @@ def view(uid):
 
 # ---------------------------------------------------------
 
-@app.route('/admin')
+@app.route('/admin/')
 def admin():
-    print('Ca passe par la chef')
     return render_template('admin.html', data = getEdition())
 
 # ---------------------------------------------------------
