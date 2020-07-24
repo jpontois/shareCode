@@ -9,6 +9,8 @@ from model_sqlite import createTables, \
     createEdition, \
     getEdition
 
+from functions import colorize
+
 app = Flask(__name__)
 createTables()
 
@@ -16,7 +18,19 @@ createTables()
 
 @app.route('/')
 def index():
-    return render_template('index.html', data = getAllCode())
+    data = getAllCode()
+    html = []
+
+    for row in data :
+        d = dict(
+            uid = row[0],
+            code = colorize(row[1], row[2]),
+            language = row[2]
+        )
+
+        html.append(d)
+
+    return render_template('index.html', data = html)
 
 # ---------------------------------------------------------
 
@@ -72,7 +86,7 @@ def view(uid):
 
     d = dict(
         uid=uid,
-        code=row[0],
+        code = colorize(row[0], row[1]),
         language=row[1],
         url="{}view/{}".format(request.host_url,uid)
     )
