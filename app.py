@@ -9,6 +9,10 @@ from model_sqlite import createTables, \
     createEdition, \
     getEdition
 
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+
 app = Flask(__name__)
 createTables()
 
@@ -16,7 +20,26 @@ createTables()
 
 @app.route('/')
 def index():
-    return render_template('index.html', data = getAllCode())
+    data = getAllCode()
+    html = []
+
+    formatter = HtmlFormatter(
+        linenos=True,
+        cssclass="source"
+    )
+
+    for row in data :
+        lexer = get_lexer_by_name(row[2], stripall=True)
+
+        d = dict(
+            uid = row[0],
+            code = highlight(row[1], lexer, formatter),
+            language = row[2]
+        )
+
+        html.append(d)
+
+    return render_template('index.html', data = html)
 
 # ---------------------------------------------------------
 

@@ -1,6 +1,7 @@
 # Evaluation semaine de cours Python : Share Code
 ## Lancement
 * pip3 install -r requirements.txt
+* pip install Pygments
 * export FLASK_ENV=development
 * python3 app.py ou python3 -m flask run
 

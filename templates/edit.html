@@ -13,8 +13,9 @@
 
 		<form method="POST" action="/publish" enctypwe="multipart/form-data">
 			<select name="language">
-				<option value="py" {% if 'py' == language %} selected {% endif %}>Python</option>
-				<option value="js" {% if 'js' == language %} selected {% endif %}>Javascript</option>
+				<option value="python" {% if 'py' == language %} selected {% endif %}>Python</option>
+				<option value="html" {% if 'html' == language %} selected {% endif %}>HTML</option>
+				<option value="javascript" {% if 'js' == language %} selected {% endif %}>Javascript</option>
 				<option value="php" {% if 'php' == language %} selected {% endif %}>PHP</option>
 				<option value="c" {% if 'c' == language %} selected {% endif %}>C</option>
 			</select>
