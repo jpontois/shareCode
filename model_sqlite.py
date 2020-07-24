@@ -6,14 +6,11 @@ def createTables():
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
-    #c.execute("DROP TABLE code")
-    #c.execute("DROP TABLE edition")
-
     c.execute('''
         CREATE TABLE IF NOT EXISTS code (
             uid INTEGER PRIMARY KEY AUTOINCREMENT,
-            code TEXT DEFAULT 'Insert your code here ...',
-            language VARCHAR(50) DEFAULT 'py',
+            code TEXT DEFAULT 'print(''What a gorgeous code !'')',
+            language VARCHAR(50) DEFAULT 'python',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updatedAt TIMESTAMP
         )
@@ -58,7 +55,9 @@ def getCode(uid):
     c.execute('''
         SELECT
             code,
-            language
+            language,
+            createdAt,
+            updatedAt
         FROM code
         WHERE uid = ?
     ''', uid)
@@ -80,7 +79,9 @@ def getAllCode():
         SELECT
             uid,
             code,
-            language
+            language,
+            createdAt,
+            updatedAt
         FROM code
         ORDER BY
             updatedAt DESC,

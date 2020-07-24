@@ -1,18 +1,27 @@
 <html>
 	<head>
-	<link href="/static/pygment_native.css" rel="stylesheet">
-	<title>Code Share: Share your codes!</title>
+		<title>Code Share: Share your codes!</title>
+		<link href="/static/pygment_native.css" rel="stylesheet">
+		<link href="/static/style.css" rel="stylesheet">
 	</head>
 	<body>
-		<h1>Code Share: Share your codes!</h1>
-		<p><a href="/">Home</a>	
-		<form>
-			<p align=left>URL: <input name='url' value="{{ url }}">
-		</form>
-		<p align=left>
-			<pre class="highlight">{{ code|safe }}</pre>
-		</p>
-		<a href="/edit/{{ uid }}">Edit</a></br>
-		<a href="/create">Create New</a>
+		<main>
+			<section class="header view">
+				<h1>Code Share: Share your codes !</h1>
+			</section>
+
+			<section class="content view">
+				<div class="btn-cont">
+					<a href="/">Accueil</a>
+					<a href="/edit/{{ uid }}">Modifier</a>
+					<a href="/create">Nouveau</a>
+					<form>
+						<label>URL:</label>
+						<input name='url' value="{{ url }}">
+					</form>
+				</div>
+				<pre class="highlight">{{ code|safe }}</pre>
+			</section>
+		</main>
 	</body>
 </html>

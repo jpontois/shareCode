@@ -1,29 +1,37 @@
 <html>
    <head>
 		<title>Code Share: Share your codes!</title>
-   </head>
+		<link href="/static/style.css" rel="stylesheet">
+	</head>
    <body>
-		<h1>Code Share: Share your codes!</h1>
-		<p><a href="/">Home</a></p>
-
-		{% if uid %}
-			<p align=left><a href="/view/{{ uid }}">View only code: {{ uid }}</a></p>
-			<p align=left>URL: <input name='url' value="{{ url }}">
-		{% endif %}
-
-		<form method="POST" action="/publish" enctypwe="multipart/form-data">
-			<select name="language">
-				<option value="python" {% if 'python' == language %} selected {% endif %}>Python</option>
-				<option value="html" {% if 'html' == language %} selected {% endif %}>HTML</option>
-				<option value="javascript" {% if 'javascript' == language %} selected {% endif %}>Javascript</option>
-				<option value="php" {% if 'php' == language %} selected {% endif %}>PHP</option>
-				<option value="c" {% if 'c' == language %} selected {% endif %}>C</option>
-			</select>
-
-			<button type="submit" name="submit" value="edit">Save</button>
-			<button type="submit" name="submit" value="view">Save &amp; View</button>
-			<textarea name="code" rows=20 cols=100>{{ code }}</textarea>
-			<input type="hidden" name="uid" value="{{ uid }}">
-	   </form>
+		<main>
+			<section class="header view">
+				<h1>Code Share: Share your codes !</h1>
+			</section>
+			<section class="content view">
+				<div class="btn-cont">
+					<a href="/">Home</a>
+					<a href="/view/{{ uid }}">Mode lecture</a>
+					<form>
+						<label>URL:</label>
+						<input name='url' value="{{ url }}">
+					</form>
+				</div>
+				<form class="main-form" method="POST" action="/publish" enctypwe="multipart/form-data">
+					<select name="language">
+						<option value="python" {% if 'python' == language %} selected {% endif %}>Python</option>
+						<option value="html" {% if 'html' == language %} selected {% endif %}>HTML</option>
+						<option value="javascript" {% if 'javascript' == language %} selected {% endif %}>Javascript</option>
+						<option value="php" {% if 'php' == language %} selected {% endif %}>PHP</option>
+						<option value="c" {% if 'c' == language %} selected {% endif %}>C</option>
+					</select>
+					<button type="submit" name="submit" value="edit">Save</button>
+					<button type="submit" name="submit" value="view">Save &amp; View</button>
+					
+					<textarea name="code" rows=20 cols=100>{{ code }}</textarea>
+					<input type="hidden" name="uid" value="{{ uid }}">
+			   </form>
+			</section>
+		</main>
    </body>
 </html>
