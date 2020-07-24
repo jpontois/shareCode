@@ -58,7 +58,9 @@ def getCode(uid):
     c.execute('''
         SELECT
             code,
-            language
+            language,
+            createdAt,
+            updatedAt
         FROM code
         WHERE uid = ?
     ''', uid)
@@ -80,7 +82,9 @@ def getAllCode():
         SELECT
             uid,
             code,
-            language
+            language,
+            createdAt,
+            updatedAt
         FROM code
         ORDER BY
             updatedAt DESC,

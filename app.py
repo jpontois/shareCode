@@ -25,7 +25,9 @@ def index():
         d = dict(
             uid = row[0],
             code = colorize(row[1], row[2]),
-            language = row[2]
+            language = row[2],
+            createdAt = row[3],
+            updatedAt = row[4]
         )
 
         html.append(d)
@@ -53,6 +55,8 @@ def edit(uid):
         uid=uid,
         code=row[0],
         language=row[1],
+        createdAt = row[2],
+        updatedAt = row[3],
         url="{}view/{}".format(request.host_url,uid)
     )
 
@@ -88,6 +92,8 @@ def view(uid):
         uid=uid,
         code = colorize(row[0], row[1]),
         language=row[1],
+        createdAt = row[2],
+        updatedAt = row[3],
         url="{}view/{}".format(request.host_url,uid)
     )
 
