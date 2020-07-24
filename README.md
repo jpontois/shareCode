@@ -5,6 +5,11 @@
 * export FLASK_ENV=development
 * python3 app.py ou python3 -m flask run
 
+## Gitflow mode projet :
+* Un branch de développement appelée "Dev"
+* Une branche par partie
+* Une branch de mise en forme
+
 ## Partie 1 : enregistrer le langage de programmation utilisé
 **Model :**
 * Ajout de fonctions permettant de créer et lire un nouveau type de fichier
