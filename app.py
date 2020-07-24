@@ -9,6 +9,8 @@ from model_sqlite import createTables, \
     createEdition, \
     getEdition
 
+from functions import colorize
+
 app = Flask(__name__)
 createTables()
 
@@ -16,13 +18,26 @@ createTables()
 
 @app.route('/')
 def index():
-    return render_template('index.html', data = getAllCode())
+    data = getAllCode()
+    html = []
+
+    for row in data :
+        d = dict(
+            uid = row[0],
+            code = colorize(row[1], row[2]),
+            language = row[2]
+        )
+
+        html.append(d)
+
+    return render_template('index.html', data = html)
 
 # ---------------------------------------------------------
 
 @app.route('/create')
 def create():
     uid = createCode()
+    createEdition(uid, request.remote_addr, request.user_agent.string)
     return redirect("{}edit/{}".format(request.host_url,uid))
 
 # ---------------------------------------------------------
@@ -32,7 +47,7 @@ def edit(uid):
     row = getCode(uid)
 
     if row is None:
-        return render_template('error.html',uid=uid)
+        return render_template('error.html',uid = uid)
 
     d = dict(
         uid=uid,
@@ -52,6 +67,7 @@ def publish():
     language  = request.form['language']
 
     updateCode(uid, code, language)
+    createEdition(uid, request.remote_addr, request.user_agent.string)
 
     return redirect(
         "{}{}/{}".format(request.host_url,
@@ -66,11 +82,11 @@ def view(uid):
     row = getCode(uid)
 
     if row is None:
-        return render_template('error.html',uid=uid)
+        return render_template('error.html',uid = uid)
 
     d = dict(
         uid=uid,
-        code=row[0],
+        code = colorize(row[0], row[1]),
         language=row[1],
         url="{}view/{}".format(request.host_url,uid)
     )
@@ -81,7 +97,7 @@ def view(uid):
 
 @app.route('/admin/')
 def admin():
-    pass
+    return render_template('admin.html', data = getEdition())
 
 # ---------------------------------------------------------
 

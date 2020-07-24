@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Code Share: Share your codes!</title>
+		<link href="/static/pygment_native.css" rel="stylesheet">
 	</head>
 	<body>
 		<h1>Code Share: Share your codes!</h1>
@@ -15,8 +16,8 @@
 			<h2>Derniers ajouts</h2>
 
 			{% for row in data %}
-				<p><a href="/view/{{ row[0] }}">{{ row[0] }}</a></p>
-				<p><pre>{{ row[1] }}</pre></p>
+				<p><a href="/view/{{ row.uid }}">{{ row.uid }}</a></p>
+				<p><pre class="highlight">{{ row.code|safe }}</pre></p>
 				<hr/>
 			{% endfor %}
 		{% endif %}
