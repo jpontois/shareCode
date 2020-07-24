@@ -6,9 +6,6 @@ def createTables():
     conn = sqlite3.connect('shareCode.db')
     c = conn.cursor()
 
-    #c.execute("DROP TABLE code")
-    #c.execute("DROP TABLE edition")
-
     c.execute('''
         CREATE TABLE IF NOT EXISTS code (
             uid INTEGER PRIMARY KEY AUTOINCREMENT,

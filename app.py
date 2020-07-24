@@ -36,7 +36,7 @@ def index():
 
 # ---------------------------------------------------------
 
-@app.route('/create')
+@app.route('/create/')
 def create():
     uid = createCode()
     createEdition(uid, request.remote_addr, request.user_agent.string)

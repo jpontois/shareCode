@@ -4,17 +4,28 @@
 		<link href="/static/style.css" rel="stylesheet">
 	</head>
 	<body>
-		<h1>Code Share: Share your codes!</h1>
-		<h2>Logs modifications</h2>
-		<a href="/">Retour accueil</a>
-
-		<ul>
-		{% if data %}
-			{% for row in data %}
-				<li>{{ row[0] }} | {{ row[1] }} | {{ row[2] }}| {{ row[3] }}</li>
-			{% endfor %}
-		{% endif %}
-		</ul>
-
+		<main>
+			<section class="header view">
+				<h1>Code Share: Share your codes !</h1>
+			</section>
+			<section>
+				<h2>Logs des modifications</h2>
+				<a class="home-admin" href="/">Retour accueil</a>
+		
+				<ul class="ul-admin">
+					{% if data %}
+						{% for row in data %}
+							<li>
+								<span>ID : </span>{{ row[0] }}
+								<span>IP : </span>{{ row[1] }}
+								<span>Date : </span>{{ row[3] }}
+								<br/>
+								<span>Navigateur : </span>{{ row[2] }}
+							</li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</section>
+		</main>
 	</body>
 </html>
