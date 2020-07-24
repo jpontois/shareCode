@@ -12,8 +12,8 @@ def createTables():
     c.execute('''
         CREATE TABLE IF NOT EXISTS code (
             uid INTEGER PRIMARY KEY AUTOINCREMENT,
-            code TEXT DEFAULT 'Insert your code here ...',
-            language VARCHAR(50) DEFAULT 'py',
+            code TEXT DEFAULT 'print(''What a gorgeous code !'')',
+            language VARCHAR(50) DEFAULT 'python',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updatedAt TIMESTAMP
         )

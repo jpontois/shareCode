@@ -38,6 +38,10 @@ section.header {
     align-items: center;
 }
 
+section.header.view {
+    height: 10vh;
+}
+
 section.header h1 {
     color: white;
 }
@@ -104,4 +108,36 @@ section .language {
 .highlight.index {
     max-height: 20vh;
     overflow: auto;
+}
+
+.btn-cont {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.btn-cont a, .btn-cont form>label {
+    padding: 3px 10px;
+    background: purple;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn-cont a {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.btn-cont a:hover {
+    background: rgb(0,0,0,0.7);
+}
+
+.btn-cont form {
+    display: inline-block;
+}
+
+.btn-cont form>input {
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(0,0,0,0.3);
 }
